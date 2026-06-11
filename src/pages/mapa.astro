@@ -4,7 +4,7 @@ import "../styles/global.css";
 import { mapPlaces, mapSize, mapZones } from "../data/map";
 import { withBase } from "../utils/paths";
 
-const mapPayload = { baseUrl: import.meta.env.BASE_URL, mapPlaces, mapSize, mapZones };
+const mapPayload = { baseUrl: withBase("/"), mapPlaces, mapSize, mapZones };
 ---
 
 <!doctype html>
