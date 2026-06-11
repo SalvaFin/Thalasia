@@ -1,0 +1,58 @@
+---
+import "../styles/global.css";
+import { historyEras } from "../data/history";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Historia completa de Thalasia: eras, mitos fundacionales y conflictos del continente." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historia de Thalasia | Atlas de Campaña</title>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Navegacion principal">
+      <a class="brand" href="/">Thalasia</a>
+      <nav class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/mapa">Mapa</a>
+        <a href="/entradas">Entradas</a>
+      </nav>
+    </header>
+
+    <main class="history-page">
+      <section class="history-hero">
+        <p class="section-kicker">Historia</p>
+        <h1>Las eras de Thalasia</h1>
+        <p>
+          La historia del continente no es una linea limpia, sino una sucesion de heridas, pactos y reconstrucciones. Estas son las eras que explican el presente de la Guerra sin Fin.
+        </p>
+      </section>
+
+      <nav class="era-index" aria-label="Indice de eras">
+        {historyEras.map((era) => (
+          <a href={`#${era.era.toLowerCase().replaceAll(" ", "-")}`}>{era.era}</a>
+        ))}
+      </nav>
+
+      <div class="history-eras">
+        {historyEras.map((era) => (
+          <article class="history-era" id={era.era.toLowerCase().replaceAll(" ", "-")}>
+            <p class="section-kicker">{era.period}</p>
+            <h2>{era.era}</h2>
+            <p class="era-summary">{era.summary}</p>
+            <div class="lore-sections">
+              {era.sections.map((section) => (
+                <section class="lore-section">
+                  <h3>{section.title}</h3>
+                  {section.body.map((paragraph) => <p>{paragraph}</p>)}
+                </section>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>

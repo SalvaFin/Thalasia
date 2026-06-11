@@ -1,0 +1,129 @@
+---
+import "../styles/global.css";
+import { generalEntries, historyEntries, locationTree } from "../data/entries";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Indice de entradas de lore de Thalasia." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entradas | Atlas de Thalasia</title>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Navegacion principal">
+      <a class="brand" href="/">Thalasia</a>
+      <nav class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/mapa">Mapa</a>
+        <a href="/entradas">Entradas</a>
+      </nav>
+    </header>
+
+    <main class="entries-page">
+      <section class="entries-hero">
+        <p class="section-kicker">Indice</p>
+        <h1>Entradas de lore</h1>
+        <p>
+          Un indice ordenado para consultar localizaciones, historia y futuras entradas de lore conforme el atlas vaya creciendo.
+        </p>
+      </section>
+
+      <section class="entry-section">
+        <div class="entry-section-heading">
+          <p class="section-kicker">Localizaciones</p>
+          <h2>Arbol de territorios</h2>
+          <p>Las regiones contienen paises, y los paises pueden contener zonas de interes.</p>
+        </div>
+
+        <div class="location-tree">
+          {locationTree.map((region) => (
+            <article class="tree-region">
+              <a class="tree-node tree-node-region" href={region.href}>
+                <span>
+                  <small>{region.kind}</small>
+                  <strong>{region.title}</strong>
+                  <em>{region.summary}</em>
+                </span>
+                <mark>{region.status}</mark>
+              </a>
+
+              {region.children && (
+                <div class="tree-children tree-countries">
+                  {region.children.map((country) => (
+                    <article class="tree-branch">
+                      <a class="tree-node tree-node-country" href={country.href}>
+                        <span>
+                          <small>{country.kind} de {region.title}</small>
+                          <strong>{country.title}</strong>
+                          <em>{country.summary}</em>
+                        </span>
+                        <mark>{country.status}</mark>
+                      </a>
+
+                      {country.children && (
+                        <div class="tree-children tree-zones">
+                          {country.children.map((zone) => (
+                            <a class="tree-node tree-node-zone" href={zone.href}>
+                              <span>
+                                <small>{zone.kind} de {country.title}</small>
+                                <strong>{zone.title}</strong>
+                                <em>{zone.summary}</em>
+                              </span>
+                              <mark>{zone.status}</mark>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="entry-section">
+        <div class="entry-section-heading">
+          <p class="section-kicker">Historia</p>
+          <h2>Cronologia y eras</h2>
+          <p>Entradas relacionadas con el pasado del continente y sus grandes acontecimientos.</p>
+        </div>
+
+        <div class="history-entry-list">
+          {historyEntries.map((entry) => (
+            <a class="entry-row" href={entry.href}>
+              <span>
+                <strong>{entry.title}</strong>
+                <small>{entry.summary}</small>
+              </span>
+              <em>{entry.status}</em>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="entry-section">
+        <div class="entry-section-heading">
+          <p class="section-kicker">Informacion general</p>
+          <h2>Notas comunes</h2>
+          <p>Entradas sueltas sobre materiales, costumbres, tensiones sociales y reglas del mundo.</p>
+        </div>
+
+        <div class="history-entry-list">
+          {generalEntries.map((entry) => (
+            <a class="entry-row" href={entry.href}>
+              <span>
+                <strong>{entry.title}</strong>
+                <small>{entry.summary}</small>
+              </span>
+              <em>{entry.status}</em>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

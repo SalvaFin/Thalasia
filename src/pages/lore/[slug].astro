@@ -1,0 +1,116 @@
+---
+import "../../styles/global.css";
+import { loreEntries } from "../../data/entries";
+import { lorePages, type LorePage } from "../../data/lore";
+import { mapPlaces, mapZones } from "../../data/map";
+
+export function getStaticPaths() {
+  const entriesByHref = new Map(
+    [...loreEntries, ...mapPlaces, ...mapZones]
+      .filter((entry) => entry.href.startsWith("/lore/"))
+      .map((entry) => [entry.href, entry]),
+  );
+
+  return Array.from(entriesByHref.values()).map((place) => ({
+    params: { slug: place.href.replace("/lore/", "") },
+    props: { place },
+  }));
+}
+
+const { place } = Astro.props;
+const slug = place.href.replace("/lore/", "");
+const lore: LorePage | undefined = lorePages[slug];
+const placeTitle = "name" in place ? place.name : place.title;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={`Pagina de lore de ${placeTitle} en Thalasia.`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{placeTitle} | Lore de Thalasia</title>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Navegacion principal">
+      <a class="brand" href="/">Thalasia</a>
+      <nav class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/mapa">Mapa</a>
+        <a href="/entradas">Entradas</a>
+      </nav>
+    </header>
+
+    <main class="lore-page">
+      {lore?.variant === "journal" ? (
+        <article class="journal-entry">
+          <div class="journal-paper">
+            <header class="journal-header">
+              <p class="section-kicker">{lore.kicker}</p>
+              <h1>{lore.title}</h1>
+              <p>{lore.summary}</p>
+            </header>
+
+            <div class="journal-grid">
+              <div class="journal-main">
+                <div class="journal-note journal-note-lead">
+                  <strong>Apunte de campo</strong>
+                  <p>
+                    Material poco comun. No registrar ubicacion exacta de vetas sin permiso real o gremial.
+                  </p>
+                </div>
+
+                <div class="lore-sections journal-sections">
+                  {lore.sections.map((section) => (
+                    <section class="lore-section">
+                      <h2>{section.title}</h2>
+                      {section.body.map((paragraph) => <p>{paragraph}</p>)}
+                    </section>
+                  ))}
+                </div>
+              </div>
+
+              <aside class="journal-side" aria-label="Notas e imagenes">
+                {lore.images?.map((image) => (
+                  <figure class="journal-photo">
+                    <img src={image.src} alt={image.alt} />
+                    <figcaption>{image.caption}</figcaption>
+                  </figure>
+                ))}
+
+                <div class="journal-sticky-stack">
+                  {lore.notes?.map((note) => (
+                    <div class="journal-sticky">
+                      <strong>{note.title}</strong>
+                      <p>{note.body}</p>
+                    </div>
+                  ))}
+                </div>
+              </aside>
+            </div>
+          </div>
+        </article>
+      ) : (
+        <article class="lore-placeholder">
+          <p class="section-kicker">{lore?.kicker ?? "Lore"}</p>
+          <h1>{lore?.title ?? placeTitle}</h1>
+          <p>{lore?.summary ?? place.summary}</p>
+          {lore ? (
+            <div class="lore-sections">
+              {lore.sections.map((section) => (
+                <section class="lore-section">
+                  <h2>{section.title}</h2>
+                  {section.body.map((paragraph) => <p>{paragraph}</p>)}
+                </section>
+              ))}
+            </div>
+          ) : (
+            <div class="empty-lore">
+              <p>Pagina de lore pendiente de completar.</p>
+            </div>
+          )}
+        </article>
+      )}
+    </main>
+  </body>
+</html>

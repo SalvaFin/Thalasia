@@ -1,0 +1,215 @@
+---
+import "../styles/global.css";
+import { generalInfo } from "../data/general";
+import { historyEras } from "../data/history";
+import { currentTensions, gods, powers, primordialForces, regions } from "../data/thalasia";
+
+const quickStats = [
+  { value: "3", label: "grandes regiones" },
+  { value: "4", label: "reinos de Jadeon" },
+  { value: "3", label: "fuerzas primordiales" },
+  { value: "8", label: "dioses mayores" },
+];
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Atlas principal de Thalasia: regiones, historia, facciones y conflictos para campañas de DnD." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thalasia | Atlas de Campaña</title>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Navegacion principal">
+      <a class="brand" href="/">Thalasia</a>
+      <nav class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/mapa">Mapa</a>
+        <a href="/entradas">Entradas</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <img class="hero-map" src="/images/thalasia-map-hero-political.png" alt="Mapa fantastico de Thalasia basado en su mapa politico." />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Atlas vivo de lore y campañas</p>
+          <h1>Thalasia</h1>
+          <p class="hero-copy">
+            Un continente partido entre la magia heredada de Jadeon, la disciplina industrial de la Confederacion del Hierro y la herida abierta de las Tierras de Nadie.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#regiones">Explorar regiones</a>
+            <a class="button secondary" href="/mapa">Abrir mapa</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-band" aria-label="Datos rapidos">
+        {quickStats.map((stat) => (
+          <div class="stat">
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section class="section intro-section">
+        <div>
+          <p class="section-kicker">El escenario</p>
+          <h2>Una frontera entre leyenda, guerra y supervivencia.</h2>
+        </div>
+        <p>
+          Thalasia se organiza alrededor de tres grandes regiones. Al oeste, la Confederacion del Hierro avanza entre forjas, murallas y doctrina militar. Al este, los Reinos de Jadeon conservan una cultura marcada por la magia, las casas reales y la memoria de su fundador. En el centro, las Tierras de Nadie impiden que el conflicto sea una simple guerra de fronteras.
+        </p>
+      </section>
+
+      <section class="section general-section">
+        <div class="section-heading">
+          <p class="section-kicker">Informacion general</p>
+          <h2>Notas comunes sobre la vida en Thalasia</h2>
+        </div>
+        <div class="general-grid">
+          {generalInfo.map((item) => (
+            <a class="general-card" href={item.href}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section class="section myth-section" id="mitologia">
+        <div class="section-heading">
+          <p class="section-kicker">Dioses y mitologia</p>
+          <h2>Antes del mundo existieron Luz, Oscuridad y Materia.</h2>
+          <p>
+            La interaccion cataclismica entre Aetherion, Nocturne y Etheras dio origen al cosmos. De aquella conflagracion primordial nacieron ocho dioses, cada uno portador de una chispa de los tres principios originales.
+          </p>
+        </div>
+        <div class="primordial-grid" aria-label="Fuerzas primordiales">
+          {primordialForces.map((force) => (
+            <article class="primordial-card">
+              <p>{force.domain}</p>
+              <h3>{force.name}</h3>
+              <strong>{force.title}</strong>
+              <span>{force.description}</span>
+              <small>{force.influence}</small>
+              <em>{force.symbol}</em>
+            </article>
+          ))}
+        </div>
+        <div class="cosmic-origin">
+          <div>
+            <p class="section-kicker">Creacion del mundo</p>
+            <h3>El primer cataclismo</h3>
+          </div>
+          <p>
+            En el principio, el encuentro entre la luz de Aetherion y el abismo de Nocturne, mediado por la realidad de Etheras, libero una energia creativa capaz de modelar el cosmos. De esa explosion nacieron los dioses que todavia ordenan la vida diaria, los juramentos, los templos y los presagios de Thalasia.
+          </p>
+        </div>
+        <div class="gods-grid" aria-label="Ocho dioses mayores">
+          {gods.map((god) => (
+            <article class="god-card">
+              <div>
+                <p>{god.domain}</p>
+                <h3>{god.name}</h3>
+                <strong>{god.title}</strong>
+              </div>
+              <ul>
+                {god.symbols.map((symbol) => <li>{symbol}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section" id="regiones">
+        <div class="section-heading">
+          <p class="section-kicker">Geografia politica</p>
+          <h2>Las tres regiones principales</h2>
+        </div>
+        <div class="region-grid">
+          {regions.map((region) => (
+            <article class="region-card">
+              <div class="region-meta">
+                <span>{region.position}</span>
+              </div>
+              <h3>{region.name}</h3>
+              <p class="tone">{region.tone}</p>
+              <p>{region.description}</p>
+              <ul>
+                {region.details.map((detail) => <li>{detail}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="split-section" id="conflicto">
+        <div class="conflict-panel">
+          <p class="section-kicker">Conflicto central</p>
+          <h2>La Guerra sin Fin</h2>
+          <p>
+            Los Reinos de Jadeon y la Confederacion del Hierro se enfrentan por ideologia, territorio y recursos. La guerra no borra sus diferencias: las vuelve mas visibles. Jadeon defiende una identidad unida por la magia y la nobleza; el Hierro responde con disciplina, ingenieria y una vision imperial del progreso.
+          </p>
+        </div>
+        <div class="tension-list" aria-label="Tensiones actuales">
+          {currentTensions.map((item) => (
+            <div class="tension-item">
+              <span></span>
+              <p>{item}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="section powers-section">
+        <div class="section-heading">
+          <p class="section-kicker">Dinamica general</p>
+          <h2>Dos visiones del continente</h2>
+        </div>
+        <div class="power-grid">
+          {powers.map((power) => (
+            <article>
+              <p>{power.label}</p>
+              <h3>{power.name}</h3>
+              <span>{power.summary}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section timeline-section" id="historia">
+        <div class="section-heading">
+          <p class="section-kicker">Historia</p>
+          <h2>Las eras que dan forma al presente</h2>
+        </div>
+        <ol class="timeline">
+          {historyEras.map((entry) => (
+            <li>
+              <div class="timeline-marker"></div>
+              <div>
+                <h3>{entry.era}</h3>
+                <p>{entry.summary}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <a class="button secondary section-button" href="/historia">Leer historia completa</a>
+      </section>
+
+      <section class="section campaign-section" id="campanas">
+        <div>
+          <p class="section-kicker">Campañas</p>
+          <h2>Pronto: diarios, eventos actuales y herramientas de mesa.</h2>
+        </div>
+        <p>
+          Esta primera version deja preparada la portada del atlas. El siguiente paso natural es separar el lore en entradas navegables, añadir un diario por campaña y reservar una zona privada de DM en el servidor.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
