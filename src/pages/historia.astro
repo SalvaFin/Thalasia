@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { historyEras } from "../data/history";
+import { withBase } from "../utils/paths";
 ---
 
 <!doctype html>
@@ -13,11 +14,11 @@ import { historyEras } from "../data/history";
   </head>
   <body>
     <header class="site-header" aria-label="Navegacion principal">
-      <a class="brand" href="/">Thalasia</a>
+      <a class="brand" href={withBase("/")}>Thalasia</a>
       <nav class="nav-links">
-        <a href="/">Inicio</a>
-        <a href="/mapa">Mapa</a>
-        <a href="/entradas">Entradas</a>
+        <a href={withBase("/")}>Inicio</a>
+        <a href={withBase("/mapa")}>Mapa</a>
+        <a href={withBase("/entradas")}>Entradas</a>
       </nav>
     </header>
 

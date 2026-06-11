@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://thalasia.local",
+  site: "https://salvafin.github.io",
+  base: "/Thalasia",
 });

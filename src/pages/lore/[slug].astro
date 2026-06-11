@@ -3,6 +3,7 @@ import "../../styles/global.css";
 import { loreEntries } from "../../data/entries";
 import { lorePages, type LorePage } from "../../data/lore";
 import { mapPlaces, mapZones } from "../../data/map";
+import { withBase } from "../../utils/paths";
 
 export function getStaticPaths() {
   const entriesByHref = new Map(
@@ -33,11 +34,11 @@ const placeTitle = "name" in place ? place.name : place.title;
   </head>
   <body>
     <header class="site-header" aria-label="Navegacion principal">
-      <a class="brand" href="/">Thalasia</a>
+      <a class="brand" href={withBase("/")}>Thalasia</a>
       <nav class="nav-links">
-        <a href="/">Inicio</a>
-        <a href="/mapa">Mapa</a>
-        <a href="/entradas">Entradas</a>
+        <a href={withBase("/")}>Inicio</a>
+        <a href={withBase("/mapa")}>Mapa</a>
+        <a href={withBase("/entradas")}>Entradas</a>
       </nav>
     </header>
 
@@ -73,7 +74,7 @@ const placeTitle = "name" in place ? place.name : place.title;
               <aside class="journal-side" aria-label="Notas e imagenes">
                 {lore.images?.map((image) => (
                   <figure class="journal-photo">
-                    <img src={image.src} alt={image.alt} />
+                    <img src={withBase(image.src)} alt={image.alt} />
                     <figcaption>{image.caption}</figcaption>
                   </figure>
                 ))}

@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { generalInfo } from "../data/general";
 import { historyEras } from "../data/history";
 import { currentTensions, gods, powers, primordialForces, regions } from "../data/thalasia";
+import { withBase } from "../utils/paths";
 
 const quickStats = [
   { value: "3", label: "grandes regiones" },
@@ -22,17 +23,17 @@ const quickStats = [
   </head>
   <body>
     <header class="site-header" aria-label="Navegacion principal">
-      <a class="brand" href="/">Thalasia</a>
+      <a class="brand" href={withBase("/")}>Thalasia</a>
       <nav class="nav-links">
-        <a href="/">Inicio</a>
-        <a href="/mapa">Mapa</a>
-        <a href="/entradas">Entradas</a>
+        <a href={withBase("/")}>Inicio</a>
+        <a href={withBase("/mapa")}>Mapa</a>
+        <a href={withBase("/entradas")}>Entradas</a>
       </nav>
     </header>
 
     <main>
       <section class="hero">
-        <img class="hero-map" src="/images/thalasia-map-hero-political.png" alt="Mapa fantastico de Thalasia basado en su mapa politico." />
+        <img class="hero-map" src={withBase("/images/thalasia-map-hero-political.png")} alt="Mapa fantastico de Thalasia basado en su mapa politico." />
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <p class="eyebrow">Atlas vivo de lore y campañas</p>
@@ -42,7 +43,7 @@ const quickStats = [
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#regiones">Explorar regiones</a>
-            <a class="button secondary" href="/mapa">Abrir mapa</a>
+            <a class="button secondary" href={withBase("/mapa")}>Abrir mapa</a>
           </div>
         </div>
       </section>
@@ -73,7 +74,7 @@ const quickStats = [
         </div>
         <div class="general-grid">
           {generalInfo.map((item) => (
-            <a class="general-card" href={item.href}>
+            <a class="general-card" href={withBase(item.href)}>
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </a>
@@ -198,7 +199,7 @@ const quickStats = [
             </li>
           ))}
         </ol>
-        <a class="button secondary section-button" href="/historia">Leer historia completa</a>
+        <a class="button secondary section-button" href={withBase("/historia")}>Leer historia completa</a>
       </section>
 
       <section class="section campaign-section" id="campanas">
